@@ -1,0 +1,2 @@
+Aplic1 1 swap
+Aplic2 2 ram
