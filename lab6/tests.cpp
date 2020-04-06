@@ -1,5 +1,6 @@
 #include "Aplicatie.h"
 #include "Repo.h"
+#include"Service.h"
 #include <iostream>
 #include <assert.h>
 #include "tests.h"
@@ -39,13 +40,45 @@ void testRepo() {
 	Repo r;
 	char x[10] = "a"; char b[10] = "b"; char s1[5] = "ram"; char s2[5] = "swap";
 	Aplicatie a(x, 10, s1);
-	r.addElem(a); //adaugare
+	r.addAplicatie(a); //adaugare
 	assert(r.getSize() == 1); //dimensiune
 	Aplicatie a1(b, 11, s2);
-	r.addElem(a1);
+	r.addAplicatie(a1);
 	assert(r.getSize() == 2);
-	vector<Aplicatie> res; res = r.getAll(); //getAll
-	assert(res[0] == a && res[1] == a1);
+
+	map<int, Aplicatie> res; res = r.getAll(); //getAll
+	assert(res.size() == 2);
+	assert(res.at(0)==a && res.at(1)==a1);
+
+	r.updateAplicatie(a, 0, b, 100, s2); //update
+	assert(strstr(a.getName(), "b") && a.getConsumMemorieKb() == 100 && strstr(a.getStatus(), "swap"));
+
+	r.delAplicatie(0); //delete
+	assert(r.getSize() == 1);
+	assert(res.at(1) == a1);
+}
+
+//teste service
+void testService() {
+	Service s;
+	char x[10] = "a"; char b[10] = "b"; char s1[5] = "ram"; char s2[5] = "swap";
+	Aplicatie a(x, 10, s1);
+	s.addAplicatie(a); //adaugare
+	assert(s.getSize() == 1); //dimensiune
+	Aplicatie a1(b, 11, s2);
+	s.addAplicatie(a1);
+	assert(s.getSize() == 2);
+
+	map<int, Aplicatie> res; res = s.getAll(); //getAll
+	assert(res.size() == 2);
+	assert(res.at(0) == a && res.at(1) == a1);
+
+	s.updateAplicatie(a, 0, b, 100, s2); //update
+	assert(strstr(a.getName(), "b") && a.getConsumMemorieKb() == 100 && strstr(a.getStatus(), "swap"));
+
+	s.delAplicatie(0); //delete
+	assert(s.getSize() == 1);
+	assert(res.at(1) == a1);
 }
 
 //apelare teste si mesaje de succes
@@ -55,5 +88,6 @@ void tests() {
 	testSetGet();
 	testEqual();
 	testRepo();
+	testService();
 	cout << "all tests are ok ... good job!" << endl << endl;
 }

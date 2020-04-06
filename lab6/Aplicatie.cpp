@@ -48,12 +48,12 @@ char* Aplicatie::getName() {
 	return this->name;
 }
 
-//getter pentru noOfSeries
+//getter pentru consumMemorieKb
 int Aplicatie::getConsumMemorieKb() {
 	return this->consumMemorieKb;
 }
 
-//getter pentru noOfReps
+//getter pentru status
 char* Aplicatie::getStatus() {
 	return this->status;
 }
@@ -68,12 +68,12 @@ void Aplicatie::setName(const char* name)
 	strcpy_s(this->name, strlen(name) + 1, name);
 }
 
-//setter pentru noOfSeries
+//setter pentru consumMemorieKb
 void Aplicatie::setConsumMemorieKb(int consumMemorieKb) {
 	this->consumMemorieKb = consumMemorieKb;
 }
 
-//setter pentru noOfReps
+//setter pentru status
 void Aplicatie::setStatus(const char* status)
 {
 	if (this->status) {
@@ -83,7 +83,7 @@ void Aplicatie::setStatus(const char* status)
 	strcpy_s(this->status, strlen(status) + 1, status);
 }
 
-//suprascrie operatorul "=" pentru un element de tip GymExercise
+//suprascrie operatorul "=" pentru un element de tip Aplicatie
 Aplicatie& Aplicatie::operator=(const Aplicatie& a) {
 	if (this == &a) return *this; //self-assignment
 	if (name) delete[] name;
@@ -108,6 +108,6 @@ bool Aplicatie:: operator==(const Aplicatie& a) {
 //pt afisare
 ostream& operator<<(ostream& os, const Aplicatie& a)
 {
-	os << "Nume - " << a.name << ", noOfSeries - " << a.consumMemorieKb << ", noOfReps - " << a.status;
+	os << "Nume - " << a.name << ", consumMemorieKb - " << a.consumMemorieKb << ", status - " << a.status;
 	return os;
 }

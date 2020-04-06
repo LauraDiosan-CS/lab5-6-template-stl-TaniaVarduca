@@ -1,31 +1,49 @@
 #include "Repo.h"
+#include "Aplicatie.h"
 #include <iostream>
 using namespace std;
 
 //constructor fara param
 Repo::Repo() {
-	this->elem;
+	this->aplicatii;
+	this->contor = 0;
 }
 
 //constuctor de copiere
 Repo::Repo(const Repo& r) {
-	this->elem = r.elem;
+	this->aplicatii = r.aplicatii;
+	this->contor = r.contor;
 }
 //destructorul
 Repo::~Repo(){
 }
 
-//adaugarea unui element
-void Repo::addElem(Aplicatie a) {
-	elem.push_back(a);
+//adaugarea unui aplicatii
+void Repo::addAplicatie(Aplicatie a) {
+	aplicatii.insert(pair<int, Aplicatie>(contor++, a));
 }
 
-//returnarea tuturor elementelor
-vector<Aplicatie> Repo::getAll() {
-	return elem;
+//returnarea tuturor aplicatiilor
+map<int, Aplicatie> Repo::getAll() {
+	return aplicatii;
 }
 
-//dimensiunea vectorului
+//stergerea unei aplicatii
+void Repo::delAplicatie(int pos)
+{
+	aplicatii.erase(pos);
+}
+
+//update la o aplicatie
+void Repo::updateAplicatie(Aplicatie& a, int pos, char* name, int consumMemorieKb, char* status)
+{
+	a.setName(name);
+	a.setConsumMemorieKb(consumMemorieKb);
+	a.setStatus(status);
+	aplicatii.at(pos) = a;
+}
+
+//dimensiune map
 int Repo::getSize() {
-	return elem.size();
+	return aplicatii.size();
 }

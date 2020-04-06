@@ -1,19 +1,15 @@
 #pragma once
-#include "Aplicatie.h" 
+#include "Aplicatie.h"
+#include "Repo.h"
 #include <map>
 
-using namespace std;
-
-class Repo
-{
+class Service {
 private:
-	map<int, Aplicatie> aplicatii;
-	int contor;
+	Repo r;
 public:
-	Repo();
-	Repo(const Repo& r);
-	~Repo();
-	void addAplicatie(Aplicatie a);
+	Service();
+	~Service();
+	void addAplicatie(Aplicatie& a);
 	map<int, Aplicatie> getAll();
 	void delAplicatie(int pos);
 	void updateAplicatie(Aplicatie& a,int pos, char* name, int consumMemorieKb, char* status);

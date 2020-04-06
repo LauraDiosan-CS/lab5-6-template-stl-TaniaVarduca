@@ -148,14 +148,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Aplicatie.cpp" />
+    <ClCompile Include="Exceptii.cpp" />
     <ClCompile Include="lab6.cpp" />
     <ClCompile Include="Repo.cpp" />
+    <ClCompile Include="Service.cpp" />
     <ClCompile Include="tests.cpp" />
+    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aplicatie.h" />
+    <ClInclude Include="Exceptii.h" />
     <ClInclude Include="Repo.h" />
+    <ClInclude Include="Service.h" />
     <ClInclude Include="tests.h" />
+    <ClInclude Include="UI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
