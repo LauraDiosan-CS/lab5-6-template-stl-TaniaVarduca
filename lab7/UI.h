@@ -14,4 +14,5 @@ public:
 	void getAll(Service& s);
 	void delAplicatie(Service& s);
 	void updateAplicatie(Service& s);
+	void run();
 };

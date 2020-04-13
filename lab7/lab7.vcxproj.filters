@@ -36,6 +36,9 @@
     <ClCompile Include="ValidareDate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RepoMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aplicatie.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ValidareDate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RepoMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

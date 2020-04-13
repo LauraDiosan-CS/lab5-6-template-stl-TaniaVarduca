@@ -1,5 +1,2 @@
-Aplic1 3241 swap
-Aplic2 444 ram
-Aplic3 231 ram
-Aplic4 563 swap
-Aplic5 100 ram
+aplic1 50
+aplic2 40

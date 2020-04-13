@@ -1,23 +1,19 @@
 #pragma once
 #include "Aplicatie.h"
 #include <map>
+#include "RepoMap.h"
 using namespace std;
 
-class RepoFile
+template <class T> class RepoFile:public Repo<Aplicatie>
 {
 private:
-	map<int, Aplicatie> aplicatii;
-	int contor;
 	const char* fis;
 public:
 	RepoFile();
 	RepoFile(const char* fileName);
-	void loadFromFile(const char* fileName);
-	void addAplicatie(Aplicatie);
-	void delAplicatie(int pos);
-	void updateAplicatie(Aplicatie& a, int pos, char* name, int consumMemorieKb, char* status);
-	map<int, Aplicatie> getAll();
-	int size();
+	void loadFromFile(const char* fileName, int& totalRAM);
 	void saveToFile();
 	~RepoFile();
 };
+
+

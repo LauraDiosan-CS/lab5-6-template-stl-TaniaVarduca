@@ -9,17 +9,20 @@ using namespace std;
 Aplicatie::Aplicatie() {
 	this->name = NULL;
 	this->consumMemorieKb = 0;
-	this->status = NULL;
+	this->statusV = NULL;
+	this->statusN = NULL;
 }
 
 //constructor cu param
-Aplicatie::Aplicatie(const char* name, int consumMemorieKb, const char* status)
+Aplicatie::Aplicatie(const char* name, int consumMemorieKb, const char* statusV, const char* statusN)
 {
 	this->name = new char[strlen(name) + 1];
 	strcpy_s(this->name, 1 + strlen(name), name);
 	this->consumMemorieKb = consumMemorieKb;
-	this->status = new char[strlen(status) + 1];
-	strcpy_s(this->status, 1 + strlen(status), status);
+	this->statusV = new char[strlen(statusV) + 1];
+	strcpy_s(this->statusV, 1 + strlen(statusV), statusV);
+	this->statusN = new char[strlen(statusN) + 1];
+	strcpy_s(this->statusN, 1 + strlen(statusN), statusN);
 }
 
 //constructor de copiere
@@ -29,9 +32,13 @@ Aplicatie::Aplicatie(const Aplicatie& a) {
 		strcpy_s(this->name, 1 + strlen(a.name), a.name);
 	}
 	this->consumMemorieKb = a.consumMemorieKb;
-	if (a.status) {
-		this->status = new char[strlen(a.status) + 1];
-		strcpy_s(this->status, 1 + strlen(a.status), a.status);
+	if (a.statusV) {
+		this->statusV = new char[strlen(a.statusV) + 1];
+		strcpy_s(this->statusV, 1 + strlen(a.statusV), a.statusV);
+	}
+	if (a.statusN) {
+		this->statusN = new char[strlen(a.statusN) + 1];
+		strcpy_s(this->statusN, 1 + strlen(a.statusN), a.statusN);
 	}
 }
 
@@ -40,7 +47,8 @@ Aplicatie::~Aplicatie() {
 	if (name) delete[]name;
 	name = NULL;
 	consumMemorieKb = -1;
-	status = NULL;
+	statusV = NULL;
+	statusV = NULL;
 }
 
 //getter pentru nume
@@ -53,9 +61,14 @@ int Aplicatie::getConsumMemorieKb() {
 	return this->consumMemorieKb;
 }
 
-//getter pentru status
-char* Aplicatie::getStatus() {
-	return this->status;
+//getter pentru statusV
+char* Aplicatie::getStatusV() {
+	return this->statusV;
+}
+
+//getter pentru statusul nou
+char* Aplicatie::getStatusN() {
+	return this->statusN;
 }
 
 //setter pentru nume
@@ -73,14 +86,24 @@ void Aplicatie::setConsumMemorieKb(int consumMemorieKb) {
 	this->consumMemorieKb = consumMemorieKb;
 }
 
-//setter pentru status
-void Aplicatie::setStatus(const char* status)
+//setter pentru statusV
+void Aplicatie::setStatusV(const char* statusV)
 {
-	if (this->status) {
-		delete[] this->status;
+	if (this->statusV) {
+		delete[] this->statusV;
 	}
-	this->status = new char[strlen(status) + 1];
-	strcpy_s(this->status, strlen(status) + 1, status);
+	this->statusV = new char[strlen(statusV) + 1];
+	strcpy_s(this->statusV, strlen(statusV) + 1, statusV);
+}
+
+//setter pentru statusul nou
+void Aplicatie::setStatusN(const char* statusN)
+{
+	if (this->statusN) {
+		delete[] this->statusN;
+	}
+	this->statusN = new char[strlen(statusN) + 1];
+	strcpy_s(this->statusN, strlen(statusN) + 1, statusN);
 }
 
 //suprascrie operatorul "=" pentru un element de tip Aplicatie
@@ -92,22 +115,27 @@ Aplicatie& Aplicatie::operator=(const Aplicatie& a) {
 		strcpy_s(name, strlen(a.name) + 1, a.name);
 	}
 	consumMemorieKb = a.consumMemorieKb;
-	if (status) delete[] status;
-	if (a.status) {
-		this->status = new char[strlen(a.status) + 1];
-		strcpy_s(status, strlen(a.status) + 1, a.status);
+	if (statusV) delete[] statusV;
+	if (a.statusV) {
+		this->statusV = new char[strlen(a.statusV) + 1];
+		strcpy_s(statusV, strlen(a.statusV) + 1, a.statusV);
+	}
+	if (statusN) delete[] statusN;
+	if (a.statusN) {
+		this->statusN = new char[strlen(a.statusN) + 1];
+		strcpy_s(statusN, strlen(a.statusN) + 1, a.statusN);
 	}
 	return *this;
 }
 
 //operatorul de egalitate
 bool Aplicatie:: operator==(const Aplicatie& a) {
-	return strcmp(this->name, a.name) == 0 && this->consumMemorieKb == a.consumMemorieKb && strcmp(this->status, a.status) == 0;
+	return strcmp(this->name, a.name) == 0 && this->consumMemorieKb == a.consumMemorieKb && strcmp(this->statusV, a.statusV) == 0 && strcmp(this->statusN, a.statusN) == 0;
 }
 
 //pt afisare
 ostream& operator<<(ostream& os, const Aplicatie& a)
 {
-	os << "Nume - " << a.name << ", consumMemorieKb - " << a.consumMemorieKb << ", status - " << a.status;
+	os << "Nume - " << a.name << ", consumMemorieKb - " << a.consumMemorieKb << ", statusV - " << a.statusV << ", statusN - " << a.statusN;
 	return os;
 }

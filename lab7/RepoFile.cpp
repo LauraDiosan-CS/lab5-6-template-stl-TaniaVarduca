@@ -4,97 +4,68 @@
 using namespace std;
 
 //constructor implicit
-RepoFile::RepoFile(){
-	this->aplicatii;
-	this->contor = 0;
+RepoFile<Aplicatie>::RepoFile():Repo(){
+	fis = "";
 }
 
 //construcor cu paramentru
-RepoFile::RepoFile(const char* fileName)
+RepoFile<Aplicatie>::RepoFile(const char* fileName):Repo()
 {
 	fis = fileName;
 	ifstream f(fileName);
 	string linie;
 	char* nume = new char[10];
 	int consumMemorieKb;
-	char* status = new char[10];
+	char* statusV = new char[10];
+	char* statusN = new char[10];
 	while (!f.eof()) {
-		f >> nume >> consumMemorieKb >> status;
+		f >> nume >> consumMemorieKb;
 		if (nume != "") {
-			Aplicatie a(nume, consumMemorieKb, status);
-			addAplicatie(a);
+			Aplicatie a(nume, consumMemorieKb, statusV, statusN);
+			aplicatii.insert(pair<int, Aplicatie>(contor++, a));
 		}
 	}
-	delete[] nume; delete[] status;
+	delete[] nume; delete[] statusV; delete[] statusN;
 	f.close();
 }
 
 //citire din fisier
-void RepoFile::loadFromFile(const char* fileName)
+void RepoFile<Aplicatie>::loadFromFile(const char* fileName, int& totalRAM)
 {
 	aplicatii.clear();
 	fis = fileName;
 	ifstream f(fileName);
 	char* nume = new char[10];
 	int consumMemorieKb;
-	char* status = new char[10];
+	char statusV[5] = "ram";
+	char statusN[5] = "ram";
 	while (!f.eof()) {
-		f >> nume >> consumMemorieKb>>status;
+		f >> nume >> consumMemorieKb;
 		if (strcmp(nume, "") != 0) {
-			Aplicatie a(nume, consumMemorieKb, status);
-			addAplicatie(a);
+			Aplicatie a(nume, consumMemorieKb, statusV, statusN);
+			aplicatii.insert(pair<int, Aplicatie>(contor++, a));
+			totalRAM += a.getConsumMemorieKb();
 		}
 	}
-	delete[] nume; delete[] status;
+	delete[] nume; 
 	f.close();
 }
 
-//adauga o aplicatie
-void RepoFile::addAplicatie(Aplicatie a)
-{
-	aplicatii.insert(pair<int, Aplicatie>(contor++, a));
-}
-
-//update la o aplicatie
-void RepoFile::updateAplicatie(Aplicatie& a, int pos, char* name, int consumMemorieKb, char* status)
-{
-	a.setName(name);
-	a.setConsumMemorieKb(consumMemorieKb);
-	a.setStatus(status);
-	aplicatii.at(pos) = a;
-}
-
-
-//stergerea unei aplicatii
-void RepoFile::delAplicatie(int pos)
-{
-	aplicatii.erase(pos);
-}
-
-
-//returnarea tuturor aplicatiilor
-map<int, Aplicatie> RepoFile::getAll() {
-	return aplicatii;
-}
-
-//dimensiune map
-int RepoFile::size()
-{
-	return aplicatii.size();
-}
 
 //scriere in fisier
-void RepoFile::saveToFile()
+void RepoFile<Aplicatie>::saveToFile()
 {
 	ofstream f(fis);
 	map<int, Aplicatie>::iterator itr;
+	//map<int, Aplicatie> res = r.getAll();
 	for (itr = aplicatii.begin(); itr != aplicatii.end(); ++itr) {
-		f << itr->second.getName() << " " << itr->second.getConsumMemorieKb() << " " << itr->second.getStatus() << endl;
+		f << itr->second.getName() << " " << itr->second.getConsumMemorieKb() << endl;
+		//f << itr->second.getName() << " " << itr->second.getConsumMemorieKb() << " " << itr->second.getStatusV() << " " << itr->second.getStatusN() << endl;
 	}
 	f.close();
 }
 
 //destructor
-RepoFile::~RepoFile()
+RepoFile<Aplicatie>::~RepoFile()
 {
 }

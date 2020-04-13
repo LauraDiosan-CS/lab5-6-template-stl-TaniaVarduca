@@ -150,6 +150,7 @@
     <ClCompile Include="Aplicatie.cpp" />
     <ClCompile Include="lab7.cpp" />
     <ClCompile Include="RepoFile.cpp" />
+    <ClCompile Include="RepoMap.cpp" />
     <ClCompile Include="Service.cpp" />
     <ClCompile Include="Tests.cpp" />
     <ClCompile Include="UI.cpp" />
@@ -158,6 +159,7 @@
   <ItemGroup>
     <ClInclude Include="Aplicatie.h" />
     <ClInclude Include="RepoFile.h" />
+    <ClInclude Include="RepoMap.h" />
     <ClInclude Include="Service.h" />
     <ClInclude Include="Tests.h" />
     <ClInclude Include="UI.h" />

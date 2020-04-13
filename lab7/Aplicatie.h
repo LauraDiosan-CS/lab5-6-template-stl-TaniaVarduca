@@ -6,18 +6,21 @@ class Aplicatie {
 private:
 	char* name;
 	int consumMemorieKb;
-	char* status;
+	char* statusV;
+	char* statusN;
 public:
 	Aplicatie();
-	Aplicatie(const char* name, int consumMemorieKb, const char* status);
+	Aplicatie(const char* name, int consumMemorieKb, const char* statusV, const char* statusN);
 	Aplicatie(const Aplicatie& a);
 	~Aplicatie();
 	char* getName();
 	int getConsumMemorieKb();
-	char* getStatus();
+	char* getStatusV();
+	char* getStatusN();
 	void setName(const char* name);
 	void setConsumMemorieKb(int consumMemorieKb);
-	void setStatus(const char* status);
+	void setStatusV(const char* statusV);
+	void setStatusN(const char* statusN);
 	Aplicatie& operator=(const Aplicatie& a);
 	bool operator==(const Aplicatie& a);
 	friend ostream& operator<<(ostream& os, const Aplicatie& a);

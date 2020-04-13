@@ -24,6 +24,7 @@ void UI::printMenu()
 	cout << "5. Iesire." << endl;
 }
 
+
 //adaugare element de tip Aplicatie
 void UI::addAplicatie(Service& s)
 {
@@ -37,15 +38,11 @@ void UI::addAplicatie(Service& s)
 	cin >> consumMemorieKb;
 	int newMemo = consumMemorieKb;
 	exceptieMemorie(consumMemorieKb, newMemo);
+	s.exceptieRAM(consumMemorieKb, newMemo);
 	consumMemorieKb = newMemo;
 
-	cout << "Dati status in [ram, swap]: ";
-	cin >> status;
-	exceptieStatus(status);
-
-	Aplicatie a(name, consumMemorieKb, status);
+	Aplicatie a(name, consumMemorieKb, "ram", "ram");
 	s.addAplicatie(a);
-	cout << endl;
 }
 
 //afisare toate elementele de tip Aplicatie
@@ -58,7 +55,7 @@ void UI::getAll(Service& s)
 		cout << "cheia: " << itr->first << ", aplicatia: " << itr->second;
 		cout << endl;
 	}
-	cout << endl;
+	cout << "Total memorie RAM consumata: " << s.getTotalMemorie() << endl << endl;
 }
 
 //stergere element de tip Aplicatie
@@ -81,17 +78,57 @@ void UI::updateAplicatie(Service& s)
 {
 	cout << "Update la exercitiul cu cheia: "; int nr; cin >> nr;
 	cout << "new name: "; char  newName[10];  cin >> newName;
+	char newStatusN[5] = "";
 
 	cout << "new consumMemorieKb: "; int newConsumMemorieKb;  cin >> newConsumMemorieKb;
 	int memo = newConsumMemorieKb;
 	exceptieMemorie(newConsumMemorieKb, memo);
 	newConsumMemorieKb = memo;
 
-	cout << "new status: "; char newStatus[10];  cin >> newStatus;
-	exceptieStatus(newStatus);
-
 	map<int, Aplicatie> aplicatii = s.getAll();
 	Aplicatie a = aplicatii.at(nr);
-	s.updateAplicatie(a, nr, newName, newConsumMemorieKb, newStatus);
+	s.updateAplicatie(a, nr, newName, newConsumMemorieKb, newStatusN);
+}
+
+void UI::run()
+{
+	bool k = true;
+	Service s; 
+	s.citireRAM();
+	s.initServ();
+	printMenu();
+	while (k)
+	{
+		int option = 0;
+		cin >> option;
+		if (option == 1)
+		{
+			addAplicatie(s);
+			printMenu();
+			continue;
+		}
+		if (option == 2)
+		{
+			getAll(s);
+			printMenu();
+			continue;
+		}
+		if (option == 3)
+		{
+			updateAplicatie(s);
+			getAll(s);
+			printMenu();
+			continue;
+		}
+		if (option == 4)
+		{
+			delAplicatie(s);
+			getAll(s);
+			printMenu();
+			continue;
+		}
+		if (option == 5)
+			k = false;
+	}
 }
 

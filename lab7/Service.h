@@ -5,15 +5,23 @@
 
 class Service {
 private:
-	RepoFile repo;
+	RepoFile<Aplicatie> rf;
+	Repo<Aplicatie>* r=&rf;
+	int capacitateRAM, totalRAM;
 public:
 	Service();
-	Service(const RepoFile&);
+	Service(Repo<Aplicatie>*&);
 	~Service();
-	void setRepo(const RepoFile&);
+	void setRepo(Repo<Aplicatie>*&);
+	void initServ();
 	void addAplicatie(Aplicatie& a);
 	map<int, Aplicatie> getAll();
 	void delAplicatie(int pos);
-	void updateAplicatie(Aplicatie& a, int pos, char* name, int consumMemorieKb, char* status);
+	void updateAplicatie(Aplicatie& a, int pos, char* name, int consumMemorieKb, char* statusN);
 	int getSize();
+	void exceptieRAM(int, int&);
+	void addRAM(int&, int);
+	void delRAM(int&, int, int);
+	void citireRAM();
+	int getTotalMemorie();
 };
